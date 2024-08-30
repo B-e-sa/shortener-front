@@ -2,24 +2,22 @@
 import {
   Box,
   Button,
-  FormControl,
   IconButton,
   InputAdornment,
   OutlinedInput,
+  SxProps,
   TextField,
 } from "@mui/material";
-import CopyIcon from "./icons/Copy";
 import { useState } from "react";
+import CopyIcon from "./icons/Copy";
 
-
-export default function CreateUrlForm() {
-  const [generatedUrl, setGeneratedUrl] = useState(""); 
+export default function CreateUrlForm({ sx }: { sx: SxProps }) {
+  const [generatedUrl, setGeneratedUrl] = useState("");
 
   return (
-    <FormControl
+    <Box
       className="unradius-fieldset"
       sx={{
-        boxShadow: "2px 2px 4px 3px rgba(0, 0, 0, 0.25)",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -27,7 +25,9 @@ export default function CreateUrlForm() {
         height: 350,
         width: 650,
         padding: "65px",
-        borderRadius: "25px",
+        borderRadius: 1,
+        boxShadow: 1,
+        ...sx,
       }}
     >
       <TextField placeholder="URL Title" variant="outlined" />
@@ -56,7 +56,7 @@ export default function CreateUrlForm() {
         sx={{
           border: "dashed",
           borderColor: "lightgray",
-          cursor: "default"
+          cursor: "default",
         }}
         value={generatedUrl}
         disabled
@@ -70,6 +70,6 @@ export default function CreateUrlForm() {
           </InputAdornment>
         }
       />
-    </FormControl>
+    </Box>
   );
 }
