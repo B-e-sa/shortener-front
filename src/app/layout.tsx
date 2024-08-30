@@ -1,9 +1,10 @@
+import PrimaryAppBar from "@/components/Header";
+import theme from "@/theme";
+import { ThemeProvider } from "@mui/material";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import { Box, ThemeProvider } from "@mui/material";
-import theme from "@/theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,7 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <header>
-              <Box sx={{ bgcolor: "primary" }}>Shortener</Box>
+              <PrimaryAppBar />
             </header>
             {children}
           </ThemeProvider>
