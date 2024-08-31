@@ -2,6 +2,9 @@
 import { Box, SxProps, Typography } from "@mui/material";
 
 export default function TopUrls({ sx }: { sx?: SxProps }) {
+  // TODO: Implement api call to get top urls
+  // TODO: Implement states that mirrors api calls effects
+
   const dummyUrls: { title: string; shortUrl: string; visits: number }[] =
     Array(5).fill({
       title: "dummyUrl",
