@@ -1,6 +1,6 @@
 import PrimaryAppBar from "@/components/Header";
 import theme from "@/theme";
-import { ThemeProvider } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -26,7 +26,7 @@ export default function RootLayout({
             <header>
               <PrimaryAppBar />
             </header>
-            {children}
+            <Box sx={{ height: "92vh" }}>{children}</Box>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
