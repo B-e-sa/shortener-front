@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import DirectionsIcon from "./icons/Directions";
 import UserIcon from "./icons/User";
+import Link from "next/link";
 
 export default function PrimaryAppBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -47,31 +48,31 @@ export default function PrimaryAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{ bgcolor: "primary.main" }} position="static">
+      <AppBar sx={{ heigth: "8vh", bgcolor: "primary.main" }} position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="primary"
-            aria-label="open drawer"
-            sx={{ mr: 2, transform: "rotate(15deg)", fill: "white" }}
-          >
-            <DirectionsIcon />
-          </IconButton>
-          <Typography
-            noWrap
-            fontSize={32}
-            component="div"
-            fontWeight="bold"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            Shortener
-          </Typography>
+          <Link href="/">
+            <IconButton
+              size="large"
+              edge="start"
+              color="primary"
+              aria-label="open drawer"
+              sx={{ mr: 2, transform: "rotate(15deg)", fill: "white" }}
+            >
+              <DirectionsIcon />
+            </IconButton>
+          </Link>
+          <Link href="/">
+            <Typography noWrap fontSize={32} component="div" fontWeight="bold">
+              Shortener
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Button sx={{ color: "#fff" }}>My URLs</Button>
+          <Box>
+            <Link href="/my-urls">
+              <Button sx={{ color: "#fff" }}>My URLs</Button>
+            </Link>
           </Box>
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box>
             <IconButton
               size="large"
               edge="end"
