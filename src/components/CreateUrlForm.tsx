@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 import CopyIcon from "./icons/Copy";
 
-export default function CreateUrlForm({ sx }: { sx: SxProps }) {
+export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
   const [generatedUrl, setGeneratedUrl] = useState("");
 
   return (
@@ -23,7 +23,7 @@ export default function CreateUrlForm({ sx }: { sx: SxProps }) {
         justifyContent: "space-between",
         justifyItems: "center",
         height: 350,
-        width: 650,
+        width: "100%",
         padding: "65px",
         borderRadius: 1,
         boxShadow: 1,

@@ -1,7 +1,7 @@
 "use client";
-import { Box, Typography } from "@mui/material";
+import { Box, SxProps, Typography } from "@mui/material";
 
-export default function TopUrls() {
+export default function TopUrls({ sx }: { sx?: SxProps }) {
   const dummyUrls: { title: string; shortUrl: string; visits: number }[] =
     Array(5).fill({
       title: "dummyUrl",
@@ -13,7 +13,7 @@ export default function TopUrls() {
     <Box
       sx={{
         height: 406,
-        width: 650,
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -21,9 +21,12 @@ export default function TopUrls() {
         borderRadius: 1,
         boxShadow: 1,
         paddingInline: 4,
+        ...sx,
       }}
     >
-      <Typography fontSize={24} marginBottom={3.5}>Top URLs this week</Typography>
+      <Typography fontSize={24} marginBottom={3.5}>
+        Top URLs this week
+      </Typography>
       <Box sx={{ width: "100%" }}>
         {dummyUrls.map((u, i) => {
           return (
