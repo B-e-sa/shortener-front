@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    min-height: 100vh;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
 .unradius-fieldset fieldset {
     border-radius: 0;
 }
