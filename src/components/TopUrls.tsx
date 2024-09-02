@@ -8,7 +8,7 @@ export default function TopUrls({ sx }: { sx?: SxProps }) {
   const dummyUrls: { title: string; shortUrl: string; visits: number }[] =
     Array(5).fill({
       title: "dummyUrl",
-      shortUrl: "http://localhost:5134/tuVh",
+      shortUrl: "tuVh",
       visits: 120,
     });
 

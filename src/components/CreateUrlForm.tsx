@@ -17,6 +17,8 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
 
   const [generatedUrl, setGeneratedUrl] = useState("");
 
+  const inputHeight = { height: 55 };
+
   return (
     <Box
       className="unradius-fieldset"
@@ -25,7 +27,7 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
         flexDirection: "column",
         justifyContent: "space-between",
         justifyItems: "center",
-        height: 350,
+        height: "fit-content",
         width: "100%",
         padding: "65px",
         borderRadius: 1,
@@ -33,19 +35,32 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
         ...sx,
       }}
     >
-      <TextField placeholder="URL Title" variant="outlined" />
-      <Box sx={{ width: 528, borderRadius: 0 }}>
+      <TextField
+        sx={{ ...inputHeight }}
+        placeholder="URL Title"
+        variant="outlined"
+      />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", sm: "row" },
+          borderRadius: 0,
+          marginBlock: { xs: 2 },
+        }}
+      >
         <TextField
           sx={{
-            width: "70%",
+            ...inputHeight,
+            width: { xs: "100%", sm: "70%" },
+            marginBottom: { xs: 2 },
           }}
           placeholder="Your URL"
           variant="outlined"
         />
         <Button
           sx={{
-            height: "100%",
-            width: "30%",
+            ...inputHeight,
+            width: { xs: "100%", sm: "30%" },
             bgcolor: "primary.main",
             borderRadius: 0,
           }}
@@ -57,6 +72,7 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
       <OutlinedInput
         className="unbordered-fieldset"
         sx={{
+          ...inputHeight,
           border: "dashed",
           borderColor: "lightgray",
           cursor: "default",

@@ -11,7 +11,7 @@ export default function Home() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "Center",
-          width: 650
+          width: { xs: 340, sm: 440, md: 690 },
         }}
       >
         <CreateUrlForm sx={{ marginBottom: 9, marginTop: 6 }} />

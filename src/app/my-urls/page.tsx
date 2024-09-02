@@ -21,31 +21,31 @@ const rows = [
   createData(
     "Frozen yoghurt",
     "https://google.com.br",
-    "http://localhost:3000/tuVh",
+    "tuVh",
     6
   ),
   createData(
     "Ice cream sandwich",
     "https://google.com.br",
-    "http://localhost:3000/tuVh",
+    "tuVh",
     9
   ),
   createData(
     "Eclair",
     "https://google.com.br",
-    "http://localhost:3000/tuVh",
+    "tuVh",
     16
   ),
   createData(
     "Cupcake",
     "https://google.com.br",
-    "http://localhost:3000/tuVh",
+    "tuVh",
     3
   ),
   createData(
     "Gingerbread",
     "https://google.com.br",
-    "http://localhost:3000/tuVh",
+    "tuVh",
     16
   ),
 ];
