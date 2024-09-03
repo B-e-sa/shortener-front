@@ -62,7 +62,13 @@ export default function PrimaryAppBar() {
             </IconButton>
           </Link>
           <Link href="/">
-            <Typography noWrap fontSize={32} component="div" fontWeight="bold">
+            <Typography
+              sx={{ display: { xs: "none", sm: "block" } }}
+              noWrap
+              fontSize={32}
+              component="div"
+              fontWeight="bold"
+            >
               Shortener
             </Typography>
           </Link>

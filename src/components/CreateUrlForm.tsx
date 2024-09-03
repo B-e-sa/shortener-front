@@ -11,13 +11,13 @@ import {
 import { useState } from "react";
 import CopyIcon from "./icons/Copy";
 
+const inputHeight = { height: 55 };
+
 export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
   // TODO: Create form input states
   // TODO: Implement create url api call
 
   const [generatedUrl, setGeneratedUrl] = useState("");
-
-  const inputHeight = { height: 55 };
 
   return (
     <Box
@@ -29,7 +29,7 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
         justifyItems: "center",
         height: "fit-content",
         width: "100%",
-        padding: "65px",
+        padding: { xs: "35px", sm: "65px" },
         borderRadius: 1,
         boxShadow: 1,
         ...sx,
