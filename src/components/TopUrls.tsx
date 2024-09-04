@@ -20,41 +20,44 @@ export default function TopUrls({ sx }: { sx?: SxProps }) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
         borderRadius: 1,
         boxShadow: 1,
-        paddingInline: 4,
+        padding: 4,
         ...sx,
       }}
     >
       <Typography fontSize={24} marginBottom={3.5}>
         Top URLs this week
       </Typography>
-      <Box sx={{ width: "100%" }}>
-        {dummyUrls.map((u, i) => {
-          return (
-            <div key={i}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  height: 50,
-                  paddingInline: 5,
-                  bgcolor: i % 2 == 0 ? "lightgray" : "inherit",
-                }}
-              >
-                <Box sx={{ display: "flex" }}>
-                  <Typography>{`${i + 1}.`}</Typography>
-                  <p>{u.title}</p>
+      {dummyUrls.length !== 0 ? (
+        <Box sx={{ width: "100%" }}>
+          {dummyUrls.map((u, i) => {
+            return (
+              <div key={i}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    height: 50,
+                    paddingInline: 5,
+                    bgcolor: i % 2 == 0 ? "lightgray" : "inherit",
+                  }}
+                >
+                  <Box sx={{ display: "flex" }}>
+                    <Typography>{`${i + 1}.`}</Typography>
+                    <p>{u.title}</p>
+                  </Box>
+                  <p>{u.shortUrl}</p>
+                  <p>{u.visits}</p>
                 </Box>
-                <p>{u.shortUrl}</p>
-                <p>{u.visits}</p>
-              </Box>
-            </div>
-          );
-        })}
-      </Box>
+              </div>
+            );
+          })}
+        </Box>
+      ) : (
+        <Typography>No URLs were found</Typography>
+      )}
     </Box>
   );
 }
