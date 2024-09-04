@@ -18,6 +18,7 @@ import React, {
 import CopyIcon from "./icons/Copy";
 import createURL from "@/services/url/createUrl";
 import URL from "@/shared/types/URL";
+import { toast } from "react-toastify";
 
 type Errors = {
   title?: string;
@@ -59,18 +60,25 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
     setUrl(e.currentTarget.value);
   };
 
+  const copyToClipboard = () => {
+    if (generatedUrl) {
+      navigator.clipboard.writeText(`http://localhost:3000/${generatedUrl}`);
+      toast("URL copied");
+    }
+  };
+
   const handleCreate = async () => {
     const trimmedTitle = title.trim();
     const trimmedURL = url.trim();
     const errors: Errors = {};
 
     if (trimmedTitle.length === 0) {
-      errors.title = "The title field cannot be empty";
+      errors.title = "This field cannot be empty";
     }
 
-    const isValidUrl = trimmedURL.match(
-      "https?://(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)"
-    );
+    const urlReg =
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/;
+    const isValidUrl = trimmedURL.match(urlReg);
 
     if (!isValidUrl) {
       errors.url = "Invalid url";
@@ -82,6 +90,20 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
     }
 
     setErrors({});
+
+    await createURL({
+      title: trimmedTitle,
+      url: trimmedURL,
+    } as URL)
+      .then((res) => {
+        setTitle("");
+        setUrl("");
+        setGeneratedUrl(res.data.shortUrl);
+        toast("URL generated with success!");
+      })
+      .catch(() => {
+        toast("An error occurred when creating your URL");
+      });
   };
 
   return (
@@ -105,6 +127,7 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
         placeholder="URL Title"
         variant="outlined"
         onChange={handleTitle}
+        value={title}
       />
       {errors.title && <ErrorMessage>{errors.title}</ErrorMessage>}
       <Box
@@ -120,10 +143,13 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
             ...inputHeight,
             width: { xs: "100%", sm: "70%" },
             marginBottom: marginSpacement,
+            backgroundColor: "white"
           }}
           onChange={handleUrl}
           placeholder="http://your-url.here"
+          value={url}
           variant="outlined"
+
         />
         {errors.url && (
           <ErrorMessage
@@ -179,9 +205,20 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
         type="text"
         placeholder="Generated URL"
         endAdornment={
-          <InputAdornment position="end">
-            <IconButton aria-label="toggle password visibility" edge="end">
-              <CopyIcon height={25} width={25} />
+          <InputAdornment onClick={copyToClipboard} position="end">
+            <IconButton
+              sx={{
+                cursor: generatedUrl ? "pointer" : "not-allowed",
+              }}
+              aria-label="toggle password visibility"
+              disableRipple={!generatedUrl}
+              edge="end"
+            >
+              <CopyIcon
+                fill={generatedUrl ? "black" : "gray"}
+                height={25}
+                width={25}
+              />
             </IconButton>
           </InputAdornment>
         }
