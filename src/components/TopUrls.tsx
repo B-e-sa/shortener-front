@@ -3,6 +3,7 @@ import getTopURLs from "@/services/url/getTopURLs";
 import URL from "@/shared/types/URL";
 import { Box, Skeleton, SxProps, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import DefaultBox from "./DefaultBox";
 
 export default function TopUrls({ sx }: { sx?: SxProps }) {
   const [urls, setUrls] = useState<URL[]>();
@@ -19,14 +20,9 @@ export default function TopUrls({ sx }: { sx?: SxProps }) {
   }, []);
 
   return (
-    <Box
+    <DefaultBox
       sx={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
         alignItems: "center",
-        borderRadius: 1,
-        boxShadow: 1,
         padding: 4,
         ...sx,
       }}
@@ -78,6 +74,6 @@ export default function TopUrls({ sx }: { sx?: SxProps }) {
             );
           })
       )}
-    </Box>
+    </DefaultBox>
   );
 }
