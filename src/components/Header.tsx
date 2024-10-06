@@ -32,12 +32,12 @@ export default function PrimaryAppBar() {
         vertical: "top",
         horizontal: "right",
       }}
-      id={menuId}
-      keepMounted
       transformOrigin={{
         vertical: "top",
         horizontal: "right",
       }}
+      id={menuId}
+      keepMounted
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
@@ -47,8 +47,8 @@ export default function PrimaryAppBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{ heigth: "8vh", bgcolor: "primary.main" }} position="static">
+    <Box sx={{ flexGrow: 1,  }}>
+      <AppBar sx={{ height: "8vh", bgcolor: "primary.main" }} position="static">
         <Toolbar>
           <Link href="/">
             <IconButton
