@@ -10,10 +10,10 @@ export default function DefaultBox({ children, sx, ...props }: DefaultBox) {
       sx={{
         display: "flex",
         flexDirection: "column",
-        width: "100%",
-        justifyItems: "center",
+        width: { xs: 340, sm: 440, md: 690 },
         borderRadius: 1,
         boxShadow: 1,
+        padding: { xs: "35px", sm: "65px" },
         ...sx,
       }}
     >

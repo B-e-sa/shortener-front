@@ -29,13 +29,26 @@ export default function RootLayout({
             <header>
               <PrimaryAppBar />
             </header>
-            <Box sx={{ height: "92vh" }}>{children}</Box>
+            <Box
+              sx={{
+                height: "92vh",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+              }}
+            >
+              {children}
+            </Box>
             <ToastContainer
               position="bottom-center"
               autoClose={3500}
               hideProgressBar={true}
               theme="light"
-              toastStyle={{ backgroundColor: "#0062FF", color: "white", fill: "white" }}
+              toastStyle={{
+                backgroundColor: "#0062FF",
+                color: "white",
+                fill: "white",
+              }}
               closeButton={false}
             />
           </ThemeProvider>

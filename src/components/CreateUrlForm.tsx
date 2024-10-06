@@ -37,7 +37,7 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
   };
 
   return (
-    <DefaultBox sx={{ padding: { xs: "35px", sm: "65px" }, ...sx }}>
+    <DefaultBox sx={{ ...sx }}>
       <Formik
         initialValues={{ title: "", url: "" }}
         validate={(values) => {
