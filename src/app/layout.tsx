@@ -26,15 +26,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <header>
-              <PrimaryAppBar />
-            </header>
+            <PrimaryAppBar />
             <Box
               sx={{
                 height: "92vh",
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center"
+                alignItems: "center",
               }}
             >
               {children}
