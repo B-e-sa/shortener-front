@@ -7,13 +7,33 @@ import ErrorMessage from "@/components/form/ErrorMessage";
 import configs from "@/components/form/configs";
 import SubmitButton from "@/components/form/SubmitButton";
 import Link from "next/link";
+import { z } from "zod";
+import { toFormikValidationSchema } from "zod-formik-adapter";
 
-type Errors = {
-  username?: string;
-  email?: string;
-  password?: string;
-  passwordConfirmation?: string;
-};
+const schema = z
+  .object({
+    username: z
+      .string()
+      .trim()
+      .min(5, "Username must have between 5 to 24 characters")
+      .max(24),
+    email: z.string().trim().email("Invalid email address"),
+    password: z
+      .string()
+      .trim()
+      .min(8, "Password must have between 8 to 32 characters")
+      .max(32),
+    passwordConfirmation: z.string().trim().min(8).max(32),
+  })
+  .superRefine((data, ctx) => {
+    if (data.password !== data.passwordConfirmation) {
+      ctx.addIssue({
+        path: ["passwordConfirmation"],
+        message: "Passwords must be equal",
+        code: "custom"
+      });
+    }
+  });
 
 export default function Page() {
   return (
@@ -25,33 +45,7 @@ export default function Page() {
           password: "",
           passwordConfirmation: "",
         }}
-        validate={(values) => {
-          const errors: Errors = {};
-
-          const trimmedEmail = values.email.trim();
-
-          if (
-            !trimmedEmail ||
-            !/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,4}$/i.test(values.email)
-          ) {
-            errors.email = "Invalid email adress";
-          }
-
-          const trimmedPassword = values.password.trim();
-
-          if (trimmedPassword.length < 8) {
-            errors.password = "Invalid password";
-          }
-
-          const trimmedPasswordConfirmation =
-            values.passwordConfirmation.trim();
-
-          if (trimmedPasswordConfirmation != trimmedPassword) {
-            errors.passwordConfirmation = "Passwords must be equal";
-          }
-
-          return errors;
-        }}
+        validationSchema={toFormikValidationSchema(schema)}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));

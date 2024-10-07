@@ -28,7 +28,7 @@ export default function Page() {
       createData("Gingerbread", "localhost:3000/tuVh", 16),
     ];
 
-    setData(rows);
+    setData(rows as URL[]);
   }, []);
 
   useEffect(() => {

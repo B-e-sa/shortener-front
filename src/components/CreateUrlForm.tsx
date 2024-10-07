@@ -7,7 +7,7 @@ import {
   SxProps,
   TextField,
 } from "@mui/material";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import CopyIcon from "./icons/Copy";
 import URL from "@/shared/types/URL";
 import { toast } from "react-toastify";
@@ -17,11 +17,12 @@ import ErrorMessage from "./form/ErrorMessage";
 import configs from "./form/configs";
 import SubmitButton from "./form/SubmitButton";
 import { Form, Formik } from "formik";
+import { z } from "zod";
 
-type Errors = {
-  title?: string;
-  url?: string;
-};
+const schema = z.object({
+  title: z.string().trim().min(5, "Title must have between 5 to 40 characters").max(40),
+  url: z.string().trim().url("Invald url"),
+});
 
 const inputHeight = { height: configs.fieldHeight };
 const errorMarginOffset = configs.fieldsSpacement * 4;
@@ -40,26 +41,6 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
     <DefaultBox sx={{ ...sx }}>
       <Formik
         initialValues={{ title: "", url: "" }}
-        validate={(values) => {
-          const errors: Errors = {};
-
-          const trimmedTitle = values.title.trim();
-
-          if (trimmedTitle.length < 5 || trimmedTitle.length > 40) {
-            errors.title = "Title must have have between 5 to 40 characters";
-          }
-
-          const trimmedUrl = values.url.trim();
-
-          const urlReg =
-            /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)/;
-
-          if (!urlReg.test(trimmedUrl)) {
-            errors.url = "Invalid url";
-          }
-
-          return errors;
-        }}
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(true);
 
@@ -118,7 +99,7 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
               <TextField
                 sx={{
                   width: { xs: "100%", sm: "70%" },
-                  marginBottom: configs.fieldsSpacement
+                  marginBottom: configs.fieldsSpacement,
                 }}
                 name="url"
                 variant="outlined"

@@ -1,43 +1,26 @@
 "use client";
 import React from "react";
 import { Form, Formik } from "formik";
-import { Box, TextField } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import DefaultBox from "@/components/DefaultBox";
 import ErrorMessage from "@/components/form/ErrorMessage";
 import configs from "@/components/form/configs";
 import SubmitButton from "@/components/form/SubmitButton";
 import Link from "next/link";
+import { z } from "zod";
+import { toFormikValidationSchema } from "zod-formik-adapter";
 
-type Errors = {
-  email?: string;
-  password?: string;
-};
+const schema = z.object({
+  email: z.string().trim().email("Invalid email address"),
+  password: z.string().trim(),
+});
 
 export default function Page() {
   return (
     <DefaultBox sx={{ marginTop: 20 }}>
       <Formik
         initialValues={{ email: "", password: "" }}
-        validate={(values) => {
-          const errors: Errors = {};
-
-          const trimmedEmail = values.email.trim();
-
-          if (
-            !trimmedEmail ||
-            !/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,4}$/i.test(values.email)
-          ) {
-            errors.email = "Invalid email adress";
-          }
-
-          const trimmedPassword = values.password.trim();
-
-          if (trimmedPassword.length < 8) {
-            errors.password = "Invalid password";
-          }
-
-          return errors;
-        }}
+        validationSchema={toFormikValidationSchema(schema)}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
@@ -97,14 +80,22 @@ export default function Page() {
             <Box
               sx={{
                 display: "flex",
+                flexDirection: { xs: "column", sm: "row" },
                 justifyContent: "space-between",
+                alignItems: "center",
                 marginTop: 4,
-                marginBottom: -4,
-                color: "primary.main"
+                marginBottom: { xs: 0, sm: -4 },
+                color: "primary.main",
               }}
             >
-              <Link href="/forgot-password">Forgot your password?</Link>
-              <Link href="/register">Create an account</Link>
+              <Link href="/forgot-password">
+                <Typography sx={{ marginBottom: 1 }}>
+                  Forgot your password?
+                </Typography>
+              </Link>
+              <Link href="/register">
+                <Typography>Create an account</Typography>
+              </Link>
             </Box>
           </Form>
         )}
