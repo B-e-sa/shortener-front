@@ -18,6 +18,7 @@ import configs from "./form/configs";
 import SubmitButton from "./form/SubmitButton";
 import { Form, Formik } from "formik";
 import { z } from "zod";
+import { toFormikValidationSchema } from "zod-formik-adapter";
 
 const schema = z.object({
   title: z.string().trim().min(5, "Title must have between 5 to 40 characters").max(40),
@@ -41,6 +42,7 @@ export default function CreateUrlForm({ sx }: { sx?: SxProps }) {
     <DefaultBox sx={{ ...sx }}>
       <Formik
         initialValues={{ title: "", url: "" }}
+        validationSchema={toFormikValidationSchema(schema)}
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(true);
 
