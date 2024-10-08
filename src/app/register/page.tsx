@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Form, Formik } from "formik";
-import { TextField, Typography } from "@mui/material";
+import { Box, SxProps, TextField, Typography } from "@mui/material";
 import DefaultBox from "@/components/DefaultBox";
 import ErrorMessage from "@/components/form/ErrorMessage";
 import configs from "@/components/form/configs";
@@ -9,6 +9,12 @@ import SubmitButton from "@/components/form/SubmitButton";
 import Link from "next/link";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
+import register from "@/services/user/register";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
+import { ApiError } from "next/dist/server/api-utils";
+import { redirect, useRouter } from "next/navigation";
+import { useAuthContext } from "@/contexts/authContext";
 
 const schema = z
   .object({
@@ -30,12 +36,15 @@ const schema = z
       ctx.addIssue({
         path: ["passwordConfirmation"],
         message: "Passwords must be equal",
-        code: "custom"
+        code: "custom",
       });
     }
   });
 
-export default function Page() {
+export default function Register() {
+  const router = useRouter();
+  const { login } = useAuthContext();
+
   return (
     <DefaultBox sx={{ marginTop: 10 }}>
       <Formik
@@ -46,11 +55,16 @@ export default function Page() {
           passwordConfirmation: "",
         }}
         validationSchema={toFormikValidationSchema(schema)}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+        onSubmit={async (values, { setSubmitting }) => {
+          await register(values)
+            .then((res) => {
+              login(res.data);
+              router.push("/");
+            })
+            .catch((e: AxiosError) => {
+              toast((e.response?.data as ApiError).message);
+            })
+            .finally(() => setSubmitting(false));
         }}
       >
         {({

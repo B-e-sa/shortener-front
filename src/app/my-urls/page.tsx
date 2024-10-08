@@ -14,7 +14,7 @@ function createData(title: string, shortUrl: string, visits: number) {
   return { title, shortUrl, visits };
 }
 
-export default function Page() {
+export default function MyUrls() {
   const [search, setSearch] = useState("");
   const [data, setData] = useState<URL[]>();
   const [searchedData, setSearchedData] = useState<URL[]>();

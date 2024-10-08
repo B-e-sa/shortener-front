@@ -7,7 +7,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
-import { blue } from "@mui/material/colors";
+import { AuthProvider } from "@/contexts/authContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,29 +26,31 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <PrimaryAppBar />
-            <Box
-              sx={{
-                height: "92vh",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              {children}
-            </Box>
-            <ToastContainer
-              position="bottom-center"
-              autoClose={3500}
-              hideProgressBar={true}
-              theme="light"
-              toastStyle={{
-                backgroundColor: "#0062FF",
-                color: "white",
-                fill: "white",
-              }}
-              closeButton={false}
-            />
+            <AuthProvider>
+              <PrimaryAppBar />
+              <Box
+                sx={{
+                  height: "92vh",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                {children}
+              </Box>
+              <ToastContainer
+                position="bottom-center"
+                autoClose={3500}
+                hideProgressBar={true}
+                theme="light"
+                toastStyle={{
+                  backgroundColor: "#0062FF",
+                  color: "white",
+                  fill: "white",
+                }}
+                closeButton={false}
+              />
+            </AuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

@@ -15,7 +15,7 @@ const schema = z.object({
   password: z.string().trim(),
 });
 
-export default function Page() {
+export default function Login() {
   return (
     <DefaultBox sx={{ marginTop: 20 }}>
       <Formik
